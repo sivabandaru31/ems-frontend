@@ -1,30 +1,46 @@
 import react from 'react' 
+import {listEmployees} from '../Services/EmployeeService';
+import React,{useEffect,useState} from 'react'
+
 const ListEmployeeComponent =()=>{
-    const dummydata=[
-        {
-            "id":1,
-            "firstName":"siva",
-            "lastName":"krishna",
-            "email":"siva@gmail.com"
 
-        },
+   const [employees,setEmployees] =  useState([])
 
-        {
-            "id":2,
-            "firstName":"basha",
-            "lastName":"mahaboob",
-            "email":"basha@gmail.com"
+   useEffect(()=>{
 
-        },
+    listEmployees().then((response)=>{
+        setEmployees(response.data);
+    }).catch(error=>{
+        console.error(error);
+    })
+   },[])
+    // const dummydata=[
+    //     {
+    //         "id":1,
+    //         "firstName":"siva",
+    //         "lastName":"krishna",
+    //         "email":"siva@gmail.com"
 
-        {
-            "id":3,
-            "firstName":"raja",
-            "lastName":"nayak",
-            "email":"raja@gmail.com"
+    //     },
 
-        }
-    ];
+    //     {
+    //         "id":2,
+    //         "firstName":"basha",
+    //         "lastName":"mahaboob",
+    //         "email":"basha@gmail.com"
+
+    //     },
+
+    //     {
+    //         "id":3,
+    //         "firstName":"raja",
+    //         "lastName":"nayak",
+    //         "email":"raja@gmail.com"
+
+    //     }
+    // ];
+
+
 
     return (
         <div className='container' >
@@ -41,18 +57,20 @@ const ListEmployeeComponent =()=>{
 
                 <tbody>
 
-                    {
-                        dummydata.map(employee =>( 
+                    {// dummydata.map(employee =>( 
+                            employees.map((employee) =>{ 
+                                console.log(employee);
+                                return( 
                             <tr key={employee.id}>
                                 <td> {employee.id} </td>
-                                <td>{employee.firstName}</td>
-                                <td>{employee.lastName}</td>
+                                <td>{employee.firstname}</td>
+                                <td>{employee.lastame}</td>
                                 <td>{employee.email}</td>
                             </tr>
-                        )
-                    )
+                        );
                     
-                    }
+                    
+                    })}
                 </tbody>
             </table>
         </div>
