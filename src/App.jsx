@@ -27,7 +27,7 @@ function App() {
       
       <Footer/>
     </BrowserRouter>
-    <EmployeeComponent/>
+    {/* <EmployeeComponent/> */}
     </>
   );
 }
