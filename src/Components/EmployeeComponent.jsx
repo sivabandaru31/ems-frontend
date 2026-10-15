@@ -1,6 +1,7 @@
-import react,{ useState } from 'react'
-import {createEmployee} from '../Services/EmployeeService'
+import react,{ useEffect, useState } from 'react'
+import {createEmployee, updateEmployee} from '../Services/EmployeeService'
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { getEmployee} from '../Services/EmployeeService';
 
 import{useNavigate,useParams} from 'react-router-dom'
 const EmployeeComponent =()=>{
@@ -12,6 +13,19 @@ const EmployeeComponent =()=>{
    const {id}= useParams();
 
      const navigator =  useNavigate();
+
+     useEffect(()=> {
+
+        if(id){
+            getEmployee(id).then((response) =>{
+                setFirstname(response.data.firstname);
+                setLastname(response.data.lastname);
+                setemail(response.data.email);
+            }).catch(error => {
+                console.error(error);
+            })
+        }
+     },[id])
 
     const [errors,setErrors]= useState({
         firstname:'',
@@ -39,18 +53,38 @@ const EmployeeComponent =()=>{
     // const handleEmail=(event) =>  setemail(event.target.value)
     
 
-    function saveEmployee(event){
+    function saveOrUpdateEmployee(event){
         event.preventDefault();
 
         if(validateForm()){
 
         const employee={firstname,lastname,email}
         console.log(employee)
+
+
+            if(id){ 
+                updateEmployee(id, employee).then((response)=>{ 
+                    console.log(response.data);
+                    navigator('/employees');
+                }).catch(error => {
+                    console.error(error);
+                })
+
+            }else{
+                createEmployee(employee).then((response) => {
+                console.log(response.data);
+                 navigator('/employees')
+                }).catch(error =>{
+                    console.error(error);
+                })
+
+                
+
+           }
+
         
-        createEmployee(employee).then((response) => {
-            console.log(response.data);
-            navigator('/employees')
-        })
+        
+        
 
         }
 
@@ -153,7 +187,7 @@ const EmployeeComponent =()=>{
                                 
                             </div>
 
-                            <button className="btn btn-success" onClick={saveEmployee}>Submit
+                            <button className="btn btn-success" onClick={saveOrUpdateEmployee}>Submit
 
                             </button>
                         </form>
