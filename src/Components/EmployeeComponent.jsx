@@ -1,5 +1,6 @@
 import react,{ useState } from 'react'
 import {createEmployee} from '../Services/EmployeeService'
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 import{useNavigate} from 'react-router-dom'
 const EmployeeComponent =()=>{
@@ -9,6 +10,12 @@ const EmployeeComponent =()=>{
     const [email,setemail]=useState('')
 
      const navigator =  useNavigate();
+
+    const [errors,setErrors]= useState({
+        firstname:'',
+        lastname:'',
+        email:''
+     })
 
     // function handleFirstname(event){
     //  setFirstname(event.target.value)
@@ -33,12 +40,50 @@ const EmployeeComponent =()=>{
     function saveEmployee(event){
         event.preventDefault();
 
+        if(validateForm()){
+
         const employee={firstname,lastname,email}
         console.log(employee)
+        
         createEmployee(employee).then((response) => {
             console.log(response.data);
             navigator('/employees')
         })
+
+        }
+
+       
+    }
+
+    function validateForm(){
+        let valid=true;
+        const errorsCopy={...errors}
+
+        if(firstname.trim()){
+            errorsCopy.firstname='';
+
+        }else{
+            errorsCopy.firstname='FirstName is required';
+            valid=false;
+        }
+
+        if(lastname.trim()){
+            errorsCopy.lastname='';
+
+        }else{
+            errorsCopy.lastname='Lastname is required';
+            valid=false;
+        }
+
+        if(email.trim()){
+            errorsCopy.email='';
+        }else{
+            errorsCopy.email='Email is required';
+            valid=false;
+        }
+
+        setErrors(errorsCopy);
+        return valid;
     }
     return(
         <div className="container">
@@ -54,12 +99,11 @@ const EmployeeComponent =()=>{
                                        placeholder="Enter employee FirstName"  
                                        name="firstName" 
                                        value={firstname}
-                                       className="form-control"
+                                       className={`form-control ${errors.firstname ? 'is-invalid':''} `}
                                     //    onChange={handleFirstname}
                                     onChange={(event) => setFirstname(event.target.value)}
                                      />
-                                        
-            
+                                   {errors.firstname && <div className='invalid-feedback '>{errors.firstname} </div>}
                             </div>
 
                             <div className="form-group mb-3 text-start">
@@ -68,10 +112,13 @@ const EmployeeComponent =()=>{
                                        placeholder="Enter employee LastName"
                                        name="lastName"
                                        value={lastname}
-                                       className="form-control"
+                                       className={`form-control ${errors.lastname ? 'is-invalid':''} `}
                                     //    onChange={handleLastname}
                                           onChange={(event) => setLastname(event.target.value)}
                                        />
+                                       
+                                        {errors.lastname && <div className='invalid-feedback '>{errors.lastname} </div>}
+                                       
                                 
                             </div>
 
@@ -81,10 +128,12 @@ const EmployeeComponent =()=>{
                                        placeholder="Enter employee Email"
                                        name="email"
                                        value={email}
-                                       className="form-control"
+                                       className={`form-control ${errors.email ? 'is-invalid':''} `}
                                     //    onChange={handleEmail}
                                     onChange={(event) =>  setemail(event.target.value)}
                                        />
+
+                                        {errors.email && <div className='invalid-feedback '>{errors.email} </div>}
                                 
                             </div>
 
