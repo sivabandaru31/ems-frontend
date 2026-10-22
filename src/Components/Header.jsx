@@ -13,6 +13,10 @@ const HeaderComponent =() =>{
                         <li className="nav-item">
                             <NavLink className  = 'nav-link' to='/employees'>Employees</NavLink>
                         </li>
+
+                        <li className="nav-item">
+                            <NavLink className  = 'nav-link' to='/departments'>Departments</NavLink>
+                        </li>
                     </ul>
                 </div>
             </nav>

@@ -3,8 +3,9 @@ import {BrowserRouter,Routes,Route} from 'react-router-dom'
 import ListEmployeeComponent from './Components/ListEmployeeComponent'
 import HeaderComponent from './Components/Header';
 import Footer from './Components/Footer';
-
 import EmployeeComponent from './Components/EmployeeComponent';
+// import ListDepartmentsComponent from './Components/ListDepartmentsComponent' ;
+import ListDepartmentsComponent from './Components/ListDepartmentsComponent';
 
 function App() {
 
@@ -25,6 +26,10 @@ function App() {
         {/* http://localhost:3000/edit-employee/1 */}
 
         <Route path='/edit-employee/:id' element={<EmployeeComponent/>}></Route>
+
+        {/* http:localhost:8081/departments */}
+        <Route path='/departments' element={<ListDepartmentsComponent/>}></Route>
+
       </Routes>
       
       <Footer/>
