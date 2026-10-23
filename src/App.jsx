@@ -6,6 +6,7 @@ import Footer from './Components/Footer';
 import EmployeeComponent from './Components/EmployeeComponent';
 // import ListDepartmentsComponent from './Components/ListDepartmentsComponent' ;
 import ListDepartmentsComponent from './Components/ListDepartmentsComponent';
+import DepartmentComponent from './Components/DepartmentComponent';
 
 function App() {
 
@@ -29,6 +30,9 @@ function App() {
 
         {/* http:localhost:8081/departments */}
         <Route path='/departments' element={<ListDepartmentsComponent/>}></Route>
+
+        {/* http://localhost:3000/add-departments */}
+        <Route  path='/add-departments' element={<DepartmentComponent/>}></Route>
 
       </Routes>
       
