@@ -34,6 +34,8 @@ function App() {
         {/* http://localhost:3000/add-departments */}
         <Route  path='/add-departments' element={<DepartmentComponent/>}></Route>
 
+        
+
       </Routes>
       
       <Footer/>
