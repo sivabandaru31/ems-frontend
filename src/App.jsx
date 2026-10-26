@@ -33,7 +33,7 @@ function App() {
 
         {/* http://localhost:3000/add-departments */}
         <Route  path='/add-departments' element={<DepartmentComponent/>}></Route>
-
+        <Route path='/edit-department/:id' element={<DepartmentComponent/>}></Route>
         
 
       </Routes>
