@@ -1,7 +1,7 @@
 
 import React,{useState,useEffect} from 'react'
 // import { createDepartment } from '../Services/DepartmentService';
-import { getDepartmentById, createDepartment } 
+import { getDepartmentById, createDepartment, updateDepartment } 
 from '../Services/DepartmentService';
 
 import { useNavigate,useParams } from 'react-router-dom';
@@ -27,19 +27,30 @@ const DepartmentComponent= () =>{
 
 
 
-    function saveDepartment(e){
+    function saveOrUpdateDepartment(e){
         e.preventDefault();
 
         const department ={departmentName,departmentDescription}
          console.log(department);
 
-         createDepartment(department).then((response)=> {
-
+         if(id){
+            updateDepartment(id,department).then((response)=>{
+                console.log(response.data);
+                navigator('/departments');
+            }).catch(error =>{
+                console.error(error);
+            })
+        }else{
+            createDepartment(department).then((response)=> {
             console.log(response.data);
             navigator('/departments')
          }).catch(error =>{
             console.error(error);
-         });  
+         }); 
+
+        }
+
+          
     }
 
 
@@ -90,7 +101,7 @@ const DepartmentComponent= () =>{
 
                             </div>
 
-                           <button className='btn btn-success mb-2' onClick={(e)=> saveDepartment(e)}>Submit</button> 
+                           <button className='btn btn-success mb-2' onClick={(e)=> saveOrUpdateDepartment(e)}>Submit</button> 
                         </form>
                          
                     </div>
