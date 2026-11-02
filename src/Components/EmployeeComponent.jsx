@@ -1,7 +1,9 @@
-import react,{ useEffect, useState } from 'react'
+import React,{ useEffect, useState } from 'react'
 import {createEmployee, updateEmployee} from '../Services/EmployeeService'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { getEmployee} from '../Services/EmployeeService';
+import { getAllDepartments }
+from '../Services/DepartmentService';
 
 import{useNavigate,useParams} from 'react-router-dom'
 const EmployeeComponent =()=>{
@@ -9,6 +11,18 @@ const EmployeeComponent =()=>{
     const [firstname,setFirstname]=useState('')
     const [lastname,setLastname] =useState('')
     const [email,setemail]=useState('')
+    
+   const [departmentId,setdepartmentId]= useState('')
+   const [departments,setdepartments]= useState([])
+
+   useEffect(()=>{
+    getAllDepartments().then((response)=>{
+        setdepartments(response.data);
+    }).catch(error=>{
+    console.error(error);
+   });
+   },[]);
+
 
    const {id}= useParams();
 
@@ -21,6 +35,7 @@ const EmployeeComponent =()=>{
                 setFirstname(response.data.firstname);
                 setLastname(response.data.lastname);
                 setemail(response.data.email);
+                setdepartmentId(String(response.data.departmentId));
             }).catch(error => {
                 console.error(error);
             })
@@ -30,7 +45,8 @@ const EmployeeComponent =()=>{
     const [errors,setErrors]= useState({
         firstname:'',
         lastname:'',
-        email:''
+        email:'',
+        departmentId:Number(departmentId)
      })
 
     // function handleFirstname(event){
@@ -58,7 +74,7 @@ const EmployeeComponent =()=>{
 
         if(validateForm()){
 
-        const employee={firstname,lastname,email}
+        const employee={firstname,lastname,email,departmentId}
         console.log(employee)
 
 
@@ -118,6 +134,12 @@ const EmployeeComponent =()=>{
             valid=false;
         }
 
+        if(departmentId){
+            errorsComp.department= ''
+        }else {
+            errorsCopy.department='Selecr Department'
+            valid =false
+        }
         setErrors(errorsCopy);
         return valid;
     }
@@ -184,6 +206,33 @@ const EmployeeComponent =()=>{
                                        />
 
                                         {errors.email && <div className='invalid-feedback '>{errors.email} </div>}
+                                
+                            </div>
+                            <div className="form-group mb-3 text-start">
+                                <label className="form-label">select Department:</label>
+                                <select
+                                className={`form-control ${errors.department ? 'is-invalid':''} `}
+                                value={departmentId}
+                                onChange={(e)=> setdepartmentId(e.target.value)}
+                                 >
+                                    <option value='select Department'>Select Department</option>
+                                    {
+                                        departments.map(department =>
+                                            <option key={department.id} value={department.id}>{department.departmentname} </option>
+                                        )
+                                    }
+                                 </select>
+
+                                {/* <input type="text"
+                                       placeholder="Enter employee Email"
+                                       name="email"
+                                       value={email}
+                                       className={`form-control ${errors.email ? 'is-invalid':''} `}
+                                    //    onChange={handleEmail}
+                                    onChange={(event) =>  setemail(event.target.value)}
+                                       /> */}
+
+                                        {errors.department && <div className='invalid-feedback '>{errors.department} </div>}
                                 
                             </div>
 
