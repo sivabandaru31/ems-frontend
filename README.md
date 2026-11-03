@@ -1,16 +1,84 @@
-# React + Vite
+# Employee Management System – Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Project Overview
+The Employee Management System is a full-stack web application frontend developed using React.js. It provides a user-friendly interface to manage employees and departments.
 
-Currently, two official plugins are available:
+## Technologies Used
+- React.js
+- JavaScript
+- HTML5
+- CSS3
+- Bootstrap
+- Axios
+- React Router DOM
+- Vite
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Features
+- View all employees
+- Add new employees
+- Update employee details
+- Delete employees
+- View all departments
+- Add new departments
+- Update department details
+- Delete departments
+- REST API integration with Spring Boot backend
 
-## React Compiler
+## Project Structure
+```text
+ems-frontend/
+├── public/
+├── src/
+│   ├── Components/
+│   ├── Services/
+│   ├── App.jsx
+│   └── main.jsx
+├── package.json
+└── vite.config.js
+```
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Backend Integration
+The frontend communicates with the Spring Boot backend through REST APIs.
 
-## Expanding the ESLint configuration
+Backend URL: `http://localhost:8081`
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Installation and Setup
+
+1. Clone the repository:
+
+```bash
+git clone https://github.com/sivabandaru31/ems-frontend.git
+```
+
+2. Navigate to the project:
+
+```bash
+cd ems-frontend
+```
+
+3. Install dependencies:
+
+```bash
+npm install
+```
+
+4. Start the development server:
+
+```bash
+npm run dev
+```
+
+5. Open the local URL displayed in your terminal.
+
+## Screenshots
+
+Add screenshots of:
+- Employee List
+- Add Employee
+- Update Employee
+- Department List
+
+## Author
+Sivakrishna Bandaru
+
+GitHub: https://github.com/sivabandaru31
